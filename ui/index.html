@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veera's Procurement Expert</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </div>
+                Veera's <span>Expert</span>
+            </div>
+            <button class="new-chat-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                New Chat
+            </button>
+        </div>
+        <div class="nav-menu">
+            <button class="nav-item active" data-view="chat">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                Chat
+            </button>
+            <button class="nav-item" data-view="inventory">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18M15 3v18"></path>
+                </svg>
+                Inventory
+            </button>
+            <button class="nav-item" data-view="settings">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
+                Settings
+            </button>
+        </div>
+        <div class="chat-history">
+            <div class="history-item">Recent Interaction</div>
+        </div>
+    </aside>
+
+    <main class="main-container">
+        <header>
+            <div class="header-left">
+                <button id="sidebar-toggle" class="icon-btn mobile-only" title="Toggle Menu">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="view-title">Chat <span>Expert</span></div>
+            </div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-toggle" title="Toggle Theme">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <section id="chat-view" class="view">
+            <div class="chat-layout">
+                <div class="chat-main">
+                    <section id="chat-messages"></section>
+                    <footer class="chat-footer">
+                        <input type="file" id="file-input" hidden accept=".pdf,.xlsx,.csv">
+                        <div id="file-status" class="file-status" style="display: none;">
+                            <span class="file-name"></span>
+                            <button id="cancel-file" class="close-btn">&times;</button>
+                        </div>
+                        <div class="input-wrapper">
+                            <button id="upload-btn" class="icon-btn" title="Upload Document">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48">
+                                    </path>
+                                </svg>
+                            </button>
+                            <input type="text" id="user-input" placeholder="Ask anything about your stock..."
+                                autocomplete="off">
+                            <button id="send-btn" class="send-btn" title="Send (Enter)">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </footer>
+                </div>
+                <div class="chat-side-panel">
+                    <div class="side-panel-header">
+                        <h3>Stock Widgets</h3>
+                        <button id="toggle-side-panel" class="icon-btn mobile-only">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mini-stock-list">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="inventory-view" class="view" style="display: none;">
+            <div class="inventory-container">
+                <div class="inventory-header">
+                    <h2>Stock Inventory</h2>
+                    <div class="inventory-actions">
+                        <button id="add-item-btn" class="icon-btn primary-btn" title="Add New Item">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                        </button>
+                        <button id="refresh-stocks" class="icon-btn" title="Refresh">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path
+                                    d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="table-wrapper responsive-table">
+                    <table id="stocks-table">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th>Unit</th>
+                                <th>Threshold</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="settings-view" class="view" style="display: none;">
+            <div class="settings-container">
+                <div class="settings-header">
+                    <h2>AI Expert Configuration</h2>
+                    <p>Customize the system prompt to change the behavior and personality of your AI Assistant.</p>
+                </div>
+                <div class="settings-content">
+                    <div class="prompt-box">
+                        <label>System Instruction (The AI's Brain)</label>
+                        <textarea id="system-prompt" placeholder="Paste your custom instructions here..."></textarea>
+                        <div class="prompt-actions">
+                            <button id="save-prompt" class="btn primary">Save Changes</button>
+                            <button id="reset-prompt" class="btn secondary">Reset to Default</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="stock-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Add New Item</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="stock-form">
+                <input type="hidden" id="stock-id">
+                <div class="form-group">
+                    <label>Item Name</label>
+                    <input type="text" id="item-name" required placeholder="e.g. MacBook Pro">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" id="item-qty" required value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Unit</label>
+                        <input type="text" id="item-unit" required placeholder="pcs, kg, etc.">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Threshold (Low Stock Alert)</label>
+                    <input type="number" id="item-threshold" value="10">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn secondary close-modal">Cancel</button>
+                    <button type="submit" class="btn primary">Save Item</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="sale-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Record Sale</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="sale-form">
+                <input type="hidden" id="sale-item-id">
+                <div class="form-group">
+                    <label>Item</label>
+                    <input type="text" id="sale-item-name" readonly>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Quantity Sold</label>
+                        <input type="number" id="sale-qty" required min="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="sale-date" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn secondary close-modal">Cancel</button>
+                    <button type="submit" class="btn primary">Record Sale</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
